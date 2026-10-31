@@ -105,8 +105,7 @@ def format_sms(fields):
         "Disclaimer: Only Sigmas Allowed to Call",
     ]
     # Multi-line format: ~2 SMS segments, still only ~$0.026 per lead.
-    return "
-".join(lines)
+    return "\n".join(lines)
 
 
 def send_sms(body):
