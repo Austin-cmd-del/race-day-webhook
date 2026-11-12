@@ -39,6 +39,18 @@ from flask import Flask, jsonify, request
 
 app = Flask(__name__)
 
+# --- BEGIN drive-push addition: Google Drive deliverable upload alerts ---
+# Adds the /drive/* routes from drive_watch.py (see README-DRIVE-PUSH.md).
+# Wrapped defensively: if the add-on cannot load, the lead webhook must
+# keep running exactly as before.
+try:
+    from drive_watch import register_drive_routes
+
+    register_drive_routes(app)
+except Exception as _drive_exc:  # noqa: BLE001
+    print(f"WARNING: drive watch routes not registered: {_drive_exc}")
+# --- END drive-push addition ---
+
 VERIFY_TOKEN = os.environ.get("META_VERIFY_TOKEN", "")
 PAGE_ACCESS_TOKEN = os.environ.get("META_PAGE_ACCESS_TOKEN", "")
 TWILIO_SID = os.environ.get("TWILIO_ACCOUNT_SID", "")
