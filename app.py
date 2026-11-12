@@ -132,6 +132,30 @@ def send_sms(body):
     return r.json()
 
 
+@app.route("/", methods=["GET"])
+def home():
+    # Public home page for the SMMA Drive Alerts OAuth app (Google Auth
+    # Platform branding requires a reachable application home page).
+    html = """<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SMMA Drive Alerts</title></head>
+<body style="font-family: Arial, sans-serif; max-width: 640px; margin: 48px auto; padding: 0 20px; color: #111;">
+<h1>SMMA Drive Alerts</h1>
+<p>SMMA Drive Alerts is a small internal automation run by Supa Monkey
+Marketing Agency (SMMA). It watches specific Google Drive folders that
+SMMA clients upload deliverables to (for example, short videos filmed for
+their ads) and sends SMMA a notification the moment a new file lands, so
+client work never sits unseen.</p>
+<p>The app only reads file metadata (file names and upload times) in the
+folders it is pointed at. It does not download, change, or share client
+files.</p>
+<p>Questions: austin@theresalemint.com</p>
+<p><a href="/privacy-policy">Privacy policy</a></p>
+</body></html>"""
+    return html, 200, {"Content-Type": "text/html; charset=utf-8"}
+
+
 @app.route("/health", methods=["GET"])
 def health():
     return jsonify({"ok": True, "service": "raceday-lead-webhook"})
